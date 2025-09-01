@@ -1,0 +1,57 @@
+import { Button, FileInput, Flex, Stack, TextInput } from '@mantine/core'
+import { useForm } from '@mantine/form'
+import { modals } from '@mantine/modals';
+import React from 'react'
+
+const FormUsers = ({ submitFn, initialValues }) => {
+    const form = useForm({
+        initialValues,
+    });
+
+    const handleSubmit = async (values) => {
+        await submitFn(values);
+        modals.closeAll();
+    }
+    return (
+        <form onSubmit={form.onSubmit(handleSubmit)}>
+            <Stack>
+                <TextInput
+                    label="Kazakh (kk)"
+                    placeholder="Введите название"
+                    {...form.getInputProps("full_name.kk")}
+                />
+                <TextInput
+                    label="Uzbek (uz)"
+                    placeholder="Введите название"
+                    {...form.getInputProps("full_name.uz")}
+                />
+                <TextInput
+                    label="Russian (ru)"
+                    placeholder="Введите название"
+                    {...form.getInputProps("full_name.ru")}
+                />
+                <TextInput
+                    label="English (en)"
+                    placeholder="Введите название"
+                    {...form.getInputProps("full_name.en")}
+                />
+                <Textarea
+                    label="Birth Date"
+                    placeholder="Введите описание"
+                    {...form.getInputProps("birth_date")}
+                />
+                <Textarea
+                    label="Phone"
+                    placeholder="Введите описание"
+                    {...form.getInputProps("phone")}
+                />
+                <Flex justify="end" gap={10}>
+                    <Button onClick={() => modals.closeAll()}>Отмена</Button>
+                    <Button type="submit">Сохранить</Button>
+                </Flex>
+            </Stack>
+        </form>
+    )
+}
+
+export default FormUsers
